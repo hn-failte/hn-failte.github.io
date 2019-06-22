@@ -1,0 +1,121 @@
+---
+title:  React中Hooks的使用
+layout: post
+categories: react
+tags: react hooks
+excerpt:  React中Hooks的使用
+---
+
+# Hooks
+
+该特性是在React 16.8中新增的
+
+## 函数组件
+
+函数组件，即表现为一个函数
+
+导出的不是类，而是被函数替换
+
+```jsx
+export default ()=>{
+    return(
+        <div></div>
+    )
+}
+```
+
+## 传统函数组件的特点
+
+根据上方的代码，可以明显得知，函数组件可以减少代码
+
+但是，传统函数组件具有以下局限性
+
+- 无生命周期
+
+- 无组件状态
+
+## Hooks的作用
+
+由于传统函数组件的特点，React引入了Hooks来使函数组件具有类组件的特性
+
+### 使用useState
+
+使用该方法能使函数组件具备初始值
+
+```js
+import {useState} from "react"
+
+let [count, setMyCount] = useState(10) //给count赋初值
+setMyCount(20) //修改count
+```
+
+### 使用useEffect
+
+使用该方法，可以使用componentDidMount、componentDidUpdate、componentWillUnmount生命周期
+
+```js
+import { useEffect } from "react"
+
+useEffect(()=>{ //等效于componentDidMount
+    console.log("componentDidMount")
+}, [])//参数二此时是一个不变的值
+
+useEffect(()=>{ //等效于componentDidUpdate
+    console.log("componentDidUpdate")
+}) //参数二的数据未变化，不会执行更新生命周期，默认不写会变化
+
+useEffect(()=>{
+    return ()=>{ //等效于componentWillUnmount
+        console.log("componentDidUnmount")
+    }
+}, []) //参数二此时是一个不变的值
+```
+
+## 使用useContext
+
+用于替换Consumer进行跨组件传值
+
+*globalContext.js*
+
+```js
+import {createContext} from "react"
+
+export default createContext()
+```
+
+*main.js*
+
+```js
+import React from "react";
+import ReactDom from "react-dom";
+import App from "./App";
+
+import globalContext from "./globalContext"
+
+ReactDom.render(
+  <globalContext.Provider value={{name: "zs", age: 18, sex: "male"}}><App /></globalContext.Provider>,
+  document.querySelector("#app"), () => {
+  console.log("Mount Successful");
+});
+
+```
+
+*ComA.js*
+
+```jsx
+import React, {useContext} from "react"
+import globalContext from "globalContext" //引入context文件
+
+export default ()=>{
+    let data = useContext(globalContext) //此时的globalContext包含Provider和Consumer
+    return (
+     	<p>{data.name}</p>
+        <p>{data.age}</p>
+    )
+}
+```
+
+## 其他API
+
+https://zh-hans.reactjs.org/docs/hooks-reference.html
+
