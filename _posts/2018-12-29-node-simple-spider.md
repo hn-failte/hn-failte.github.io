@@ -1,11 +1,11 @@
 ---
-title:  NodeJS简单爬虫
+title:  Node简单爬虫
 layout: post
-categories: nodejs
-tags: js node
-excerpt: NodeJS Spider
+categories: node
+tags: node spider
+excerpt: Node Spider
 ---
-## NodeJS简单爬虫
+## Node简单爬虫
 
 * 最近一直在追火星的一本书，然后每次都要去网站看，感觉很麻烦，于是，想起用爬虫爬取章节，务实排，说干就干！
 
