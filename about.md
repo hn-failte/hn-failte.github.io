@@ -1,6 +1,6 @@
 ---
 layout: page
-title: "About Me"
+title: "关于"
 css: ["about.css", "animate.css", "morphext.css"]
 js: ["morphext.min.js", "about.js"]
 ---
