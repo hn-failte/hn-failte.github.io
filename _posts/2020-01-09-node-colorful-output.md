@@ -10,7 +10,7 @@ excerpt:  如何在Node和浏览器控制台中打印彩色文字
 
 # 如何在Node和浏览器控制台中打印彩色文字
 
-这篇文章中，我们主要眼研究的是如何在Node中打印出彩色文字，浏览器的只是附带。
+这篇文章中，我们主要研究的是如何在Node中打印出彩色文字，浏览器的只是附带。
 
 ## 一、常用场景：
 
@@ -73,6 +73,7 @@ console.log('%c%s', 'color: red; font-size: 20px', 'red')
 \33[?25l 隐藏光标
 \33[?25h 显示光标
 ```
+
 ### 3、使用例子
 
 例1：**单字体颜色**
@@ -92,7 +93,9 @@ int main(){
     return 0;
 }
 ```
+
 例2：**单背景颜色**
+
 ```c
 #include <stdio.h>
 int main(){
@@ -108,7 +111,9 @@ int main(){
     return 0;
 }
 ```
+
 例3：**自由组合**
+
 ```c
 #include <stdio.h>
 int main(){
@@ -174,4 +179,4 @@ process.stdout.write(mix)
 
 掘金：[https://juejin.im/user/5b2b023451882574a6724cdf](https://juejin.im/user/5b2b023451882574a6724cdf)
 个人博客: [https://failte.cn](https://failte.cn)
-公众号: ![Vue的响应式原理示意图](https://hn-failte.github.io/assets/res/qrcode.jpg#pic_center =30x30)
+公众号: ![qrcode](https://hn-failte.github.io/assets/res/qrcode.jpg#pic_center =30x30)
