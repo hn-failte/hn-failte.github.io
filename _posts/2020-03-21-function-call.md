@@ -1,0 +1,71 @@
+---
+title: 函数的尾调用和尾递归
+layout: post
+categories: JavaScript
+tags: JavaScript
+excerpt: 函数的尾调用和尾递归
+---
+
+# 函数的尾调用和尾递归
+
+## 尾调用
+
+函数调用会在内存形成一个调用帧，保存调用位置和内部变量等信息。
+
+一个函数内存在其他函数调用，其他函数就会在这个函数上形成调用帧，所有的调用帧形成了一个调用栈。
+
+为尾调用是指在函数的最后一步操作时，返回另一个函数的调用，这个时候，由于不会用到调用的位置和内部变量等信息，不需要保留外层函数的调用帧。
+
+尾调用：
+```js
+function A() {
+    return B() // 尾调用
+}
+
+function B() {
+    return C() + 1; // 最后一步操作不是函数调用
+}
+
+function C(){
+    var val = D()
+    return val; // 最后一步操作不是函数调用
+}
+function D(){
+    E() // 最后一步操作不是函数调用
+}
+function E(){
+    console.log('只有A是尾调用') // 最后一步操作不是函数调用
+}
+```
+
+## 尾递归
+
+函数递归对内存消耗很大，每次递归都会产生一个调用帧，而整个递归下来会产生很多的调用帧，很容易出现栈溢出的问题。
+
+尾调用是可以有效减少执行栈的，将尾调用和递归结合，有可能将复杂度为O(n)的计算变成O(1)。
+
+非尾调用
+```js
+function Fibonacci (n) {
+    if ( n <= 1 ) {return 1};
+    return Fibonacci(n - 1) + Fibonacci(n - 2);
+}
+Fibonacci(10) // 89
+Fibonacci(100) // 超时
+Fibonacci(500) // 超时
+```
+尾调用
+```js
+function Fibonacci2 (n , ac1 = 1 , ac2 = 1) {
+    if( n <= 1 ) {return ac2};
+    return Fibonacci2 (n - 1, ac2, ac1 + ac2);
+}
+Fibonacci2(100) // 573147844013817200000
+Fibonacci2(1000) // 7.0330367711422765e+208
+Fibonacci2(10000) // Infinity
+```
+
+建议在ES6中对递归进行尾调用优化。
+
+## 兼容
+
