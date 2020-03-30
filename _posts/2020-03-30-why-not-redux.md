@@ -1,14 +1,12 @@
-# 为什么不用Redux
-
 ---
-
 title: 为什么不用Redux
 layout: post
 categories: React
 tags: React
 excerpt: Why not Redux?
-
 ---
+
+# 为什么不用Redux
 
 ## Redux的由来: Flux
 
