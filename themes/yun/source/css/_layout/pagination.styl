@@ -1,0 +1,38 @@
+.page-number-basic {
+  display: inline-block;
+  width: 2rem;
+  height: 2rem;
+  margin: 0;
+  background-color: alpha($white, 0.5);
+  transition: 0.2s;
+}
+
+.pagination {
+  text-align: center;
+
+  .space {
+    @extend .page-number-basic;
+  }
+
+  .prev, .next, .page-number {
+    @extend .page-number-basic;
+    cursor: pointer;
+    color: $dark;
+    text-decoration: none;
+
+    &:hover {
+      background: rgba(lighten($colors.primary, 90%), 0.9);
+    }
+
+    &:active {
+      background: rgba(lighten($colors.primary, 20%), 0.9);
+      color: $white;
+    }
+
+    &.current {
+      background: rgba($colors.primary, 0.9);
+      color: $white;
+      cursor: default;
+    }
+  }
+}

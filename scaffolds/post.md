@@ -1,5 +1,8 @@
 ---
 title: {{ title }}
 date: {{ date }}
-tags:
+layout: post
+categories: Front-End
+tags: Front-End
+excerpt: {{ title }}
 ---

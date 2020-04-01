@@ -2,8 +2,8 @@
 title: Vue源码解读（一）
 date: 2019-12-29 18:48:55
 layout: post
-categories: JavaScript
-tags: JavaScript
+categories: Vue
+tags: Vue
 excerpt: Vue源码解读（一）
 ---
 

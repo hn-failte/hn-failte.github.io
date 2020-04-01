@@ -1,0 +1,68 @@
+// #post {}
+
+.post {
+  &-block, &-comment {
+    margin: 0 1rem;
+    padding: 1rem;
+    background-color: white;
+
+    +mobile() {
+      margin: 0;
+      padding-top: 2.5rem;
+    }
+  }
+
+  &-body {
+    padding: 0 5rem;
+
+    +mobile() {
+      padding: 0 0.5rem;
+    }
+  }
+
+  &-content {
+    padding: 20px 0px;
+  }
+}
+
+.post-meta {
+  font-size: 14px;
+  color: $dark;
+
+  .icon {
+    margin-bottom: -1px;
+  }
+}
+
+.post-meta-item-icon {
+  display: inline-block;
+  color: var(--text-color, #333);
+}
+
+.post-meta-divider {
+  height: 25px;
+  color: $dark;
+  margin: 0 0.5rem;
+}
+
+.post-eof {
+  margin: 50px auto;
+  width: 50%;
+  height: 1px;
+  background: $blue;
+  opacity: 0.1;
+}
+
+.post-copyright {
+  font-size: 0.9rem;
+  margin: 2rem 0;
+  padding: 0.5rem 1rem;
+  border-left: 3px solid #f8722a;
+  background-color: $light;
+  list-style: none;
+}
+
+.tag-name {
+  padding-left: 0.1rem;
+  padding-right: 0.2rem;
+}

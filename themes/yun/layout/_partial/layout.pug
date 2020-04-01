@@ -1,0 +1,39 @@
+- var title = __('title') !== 'title' && __('title') || config.title
+- var description = page.description || page.title || config.description || ''
+- var keywords = Array.isArray(config.keywords) ? config.keywords.join(',') : config.keywords
+- if (page.tags && page.tags.data) keywords = page.tags.data.map(function(tag) {return tag.name;}).join(',')
+- var author = config.email ? config.author + ',' + config.email : config.author
+- var copyright = config.copyright || config.author
+
+doctype html
+html(lang=config.language)
+  head
+    meta(charset='UTF-8')
+    meta(http-equiv="X-UA-Compatible" content="IE=edge")
+    meta(name="viewport" content="width=device-width, initial-scale=1.0")
+    meta(name="description" content=description)
+    meta(name="keywords" content=keywords)
+    meta(name="author" content=author)
+    meta(name="copyright" content=copyright)
+    meta(name='theme-color', content=theme.colors.primary)
+    title
+      block title
+        | #{title}
+    include head.pug
+    include ../_third-party/cdn.pug
+    block preconnect
+  body(class= is_home() ? 'is-home' : '')
+    //- background
+    include background.pug
+    .container
+      //- global
+      include ../_third-party/icon.pug
+      include sidebar.pug
+      main#content.sidebar-translate
+        block content
+      include footer.pug
+      //- widget
+      include ../_widget/index.pug
+    if theme.js
+      each item in theme.js
+        script(defer, src=url_for(theme.cdn.pre + item))
