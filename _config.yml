@@ -61,7 +61,7 @@ highlight:
 # order_by: Posts order. (Order by date descending by default)
 index_generator:
   path: ""
-  per_page: 10
+  per_page: 12
   order_by: -date
 
 # Category & Tag
@@ -121,3 +121,9 @@ feed:
   content:
   content_limit:
   content_limit_delim: " "
+
+# Search Engine
+search:
+  path: search.xml
+  field: post
+  content: true
