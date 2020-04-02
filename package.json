@@ -6,6 +6,9 @@
     "build": "hexo generate",
     "clean": "hexo clean",
     "deploy": "npm version patch && hexo deploy",
+    "deploy:s": "npm version patch && hexo deploy",
+    "deploy:m": "npm version minor && hexo deploy",
+    "deploy:b": "npm version majo && hexo deploy",
     "server": "hexo server",
     "start": "hexo server"
   },
