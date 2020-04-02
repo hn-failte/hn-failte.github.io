@@ -2,7 +2,7 @@
 title: React之immutable的使用
 date: 2019-02-28 15:45:12
 layout: post
-categories: react
+categories: React
 tags: Immutable
 excerpt: React开发中，Redux是必不可少的，而Redux数据单一不变的思想，往往会在Reducer中写深拷贝，对性能产生或多或少的影响，而immutable就是为了解决这个问题产生的......
 ---
