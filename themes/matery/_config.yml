@@ -203,7 +203,7 @@ clicklove:
 # 在”关于”页面中配置个人信息，包括头像、职业和个人介绍.
 profile:
   avatar: /medias/avatar.jpg
-  career: Software Engineer
+  career: Front-End Development Engineer
   introduction: If you wish to succeed, you should use persistence as your good friend, experience as your reference, prudence as your brother and hope as your sentry.
 
 # config my projects informations in about page.
@@ -281,12 +281,12 @@ gitalk:
 # the Gitment config，default disabled
 # Gitment 评论模块的配置，默认为不激活
 gitment:
-  enable: false
-  owner:
-  repo:
+  enable: true
+  owner: hn-failte
+  repo: blog-comment
   oauth:
-    clientId:
-    clientSecret:
+    clientId: Iv1.1714803861cd1a9d
+    clientSecret: 95ffd232b8b702425cb76e7c4b2d6a574b2bc3d2
 
 # disqus config, default disabled
 # Disqus评论模块的配置，默认为不激活
