@@ -18,6 +18,7 @@
   "dependencies": {
     "hexo": "^4.0.0",
     "hexo-deployer-git": "^2.1.0",
+    "hexo-filter-github-emojis": "^2.1.0",
     "hexo-generator-archive": "^1.0.0",
     "hexo-generator-category": "^1.0.0",
     "hexo-generator-feed": "^2.2.0",
