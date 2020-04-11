@@ -6,9 +6,9 @@
     "build": "hexo generate",
     "clean": "hexo clean",
     "deploy": "hexo cl && hexo d",
-    "deploy:s": "hexo cl && npm version patch && hexo d",
-    "deploy:m": "hexo cl && npm version minor && hexo d",
-    "deploy:b": "hexo cl && npm version majo && hexo d",
+    "deploy:s": "hexo cl && npm version patch && hexo d && git push origin v2",
+    "deploy:m": "hexo cl && npm version minor && hexo d && git push origin v2",
+    "deploy:b": "hexo cl && npm version majo && hexo d && git push origin v2",
     "dev": "hexo server",
     "server": "hexo server",
     "start": "hexo server"
