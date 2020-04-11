@@ -9,6 +9,7 @@
     "deploy:s": "hexo cl && npm version patch && hexo deploy",
     "deploy:m": "hexo cl && npm version minor && hexo deploy",
     "deploy:b": "hexo cl && npm version majo && hexo deploy",
+    "dev": "hexo server",
     "server": "hexo server",
     "start": "hexo server"
   },

@@ -272,10 +272,10 @@ postCalendar: true
 gitalk:
   enable: true
   owner: hn-failte
-  repo: blog-comment
+  repo: hn-failte.github.io
   oauth:
-    clientId: Iv1.1714803861cd1a9d
-    clientSecret: 95ffd232b8b702425cb76e7c4b2d6a574b2bc3d2
+    clientId: da49c128ac413c49867b
+    clientSecret: ada67e9c57a05a4f3281bba197d90a7b6fb420fb
   admin: hn-failte
 
 # the Gitment config，default disabled
