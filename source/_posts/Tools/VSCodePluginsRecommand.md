@@ -7,37 +7,35 @@ tags: VSCode
 excerpt: 最近梳理了一下自己接触过的VSCode插件，归类了一下分享出来~
 ---
 
-[TOC]
+[toc]
 
-# VSCode插件
-
-最近梳理了一下自己接触过的VSCode插件，归类了一下分享出来~
+# VSCode 插件
 
 ## 必备基础系列
 
 - Chinese (simple) language pack for visual studio code
-  vscode汉化包
+  vscode 汉化包
 
 - debuger for chrome
   谷歌调试工具
 
 - ESLint
-  JS语法检测
+  JS 语法检测
 
 - htmlhint
-  html语法检测
+  html 语法检测
 
 - stylelint
-  css语法检测
+  css 语法检测
 
 - View In Browser
   在浏览器中打开
 
 - HTML CSS Support
-  html/css支持
+  html/css 支持
 
 - HTML Snippets
-  HTML代码智能填充
+  HTML 代码智能填充
 
 - Auto Close Tag
   自动闭合标签
@@ -55,40 +53,52 @@ excerpt: 最近梳理了一下自己接触过的VSCode插件，归类了一下�
   优化各类格式文件的图标显示
 
 - npm intellisense
-  智能提示本地的node包名
+  智能提示本地的 node 包名
 
 - npm
-  npm的支持，智能监测package.json文件规范
+  npm 的支持，智能监测 package.json 文件规范
 
 - JavaScript(ES6) code snippets
-  ES6语法提示
+  ES6 语法提示
 
 - filesize
   左下角显示文件大小
 
+- EditorConfig for VS Code
+  编辑器配置
+
 ## 可选基础类
 
 - vue 2 snippets
-  vue2语法提示
+  vue2 语法提示
 
 - React/Redux/react-router Snippets
-  react语法提示
+  react 语法提示
 
 - tslint
-  TS语法检测，搭配TypeScript用
+  TS 语法检测，搭配 TypeScript 用
   nimapp 微信小程序
 
 - LESS IntelliSence
-  LESS智能提示
+  LESS 智能提示
 
 - stylelint
-  CSS/SCSS/LESS语法检测
+  CSS/SCSS/LESS 语法检测
 
 - manta's stylus supremacy
-  stylus格式化支持
+  stylus 格式化支持
 
 - language-stylus
-  stylus智能提示
+  stylus 智能提示
+
+- minapp
+  小程序开发包
+
+- Beautify css/sass/scss/less
+  样式格式化
+
+- Better Comments
+  注释规范化工具
 
 ## 效率类
 
@@ -102,31 +112,31 @@ excerpt: 最近梳理了一下自己接触过的VSCode插件，归类了一下�
   待办管理
 
 - GitLens
-  git支持
+  git 支持
 
 - git history
-  diff当前代码与HEAD的代码
+  diff 当前代码与 HEAD 的代码
 
 - project manager
   项目管理器，快速切换各个项目
 
 - Live Server
-  调试服务器，可以在html文件中，右键选择在live server中打开
+  调试服务器，可以在 html 文件中，右键选择在 live server 中打开
 
 - markdownlint
-  markdown语法检测
+  markdown 语法检测
 
 - CSS peek
-  css类名在html文件中弹框提示
+  css 类名在 html 文件中弹框提示
 
 - git project manager
-  git项目管理器
+  git 项目管理器
 
 - VSCode database
-  使用vscode连接数据库
+  使用 vscode 连接数据库
 
 - IntelliSense for CSS class names in HTML
-  html智能提示类名
+  html 智能提示类名
 
 - Color Picker
   选色器
@@ -143,10 +153,19 @@ excerpt: 最近梳理了一下自己接触过的VSCode插件，归类了一下�
 - Bracket Pair Colorizer
   花括号颜色匹配
 
+- Quokka.js
+  实时标注执行情况
+
+- VS Code for Node.js - Development Pack
+  Node 开发包
+
+- Node.js Extension Pack
+  Node 扩展包
+
 ## 其他
 
 - power mode
   花哨你的编辑器
 
 - background
-  给你的编辑器更换背景图，该插件会替换vscode内置样式文件
+  给你的编辑器更换背景图
