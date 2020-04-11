@@ -5,10 +5,10 @@
   "scripts": {
     "build": "hexo generate",
     "clean": "hexo clean",
-    "deploy": "hexo cl && hexo deploy",
-    "deploy:s": "hexo cl && npm version patch && hexo deploy",
-    "deploy:m": "hexo cl && npm version minor && hexo deploy",
-    "deploy:b": "hexo cl && npm version majo && hexo deploy",
+    "deploy": "hexo cl && hexo d",
+    "deploy:s": "hexo cl && npm version patch && hexo d",
+    "deploy:m": "hexo cl && npm version minor && hexo d",
+    "deploy:b": "hexo cl && npm version majo && hexo d",
     "dev": "hexo server",
     "server": "hexo server",
     "start": "hexo server"

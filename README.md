@@ -46,6 +46,17 @@ yarn deploy:b
 
 ## Hexo command
 
+### Init Project
+
+``` bash
+hexo init
+
+# or
+
+hexo in
+hexo i
+```
+
 ### Create a new post
 
 ``` bash
@@ -70,9 +81,10 @@ hexo generate
 # or
 
 hexo ge
+hexo g
 ```
 
-# Clean static files
+### Clean static files
 
 ```bash
 hexo clean
@@ -92,6 +104,7 @@ hexo deploy
 # or
 
 hexo de
+hexo d
 ```
 
 More info: [Deployment](https://hexo.io/docs/one-command-deployment.html)
