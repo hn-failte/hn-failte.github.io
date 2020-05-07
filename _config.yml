@@ -48,12 +48,18 @@ post_asset_folder: false
 relative_link: true
 future: true
 highlight:
-  enable: true
-  line_number: true
-  auto_detect: false
-  tab_replace: ""
-  wrap: true
-  hljs: false
+  enable: false
+  # line_number: false
+  # auto_detect: false
+  # tab_replace: ""
+  # wrap: true
+  # hljs: false
+
+prism_plugin:
+  mode: 'preprocess'    # realtime/preprocess
+  theme: 'tomorrow'
+  line_number: false    # default false
+  custom_css:
 
 # Home page setting
 # path: Root path for your blogs index page. (default = '')
