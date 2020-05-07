@@ -1,6 +1,6 @@
 ---
-title: { { title } }
-date: { { date } }
+title: {{ title }}
+date: {{ date }}
 layout: post
 author: hn-failte
 # password: ""
@@ -13,6 +13,6 @@ top: true
 mathjax: false
 tags:
   - Front-End
-excerpt: { { title } }
+excerpt: {{ title }}
 summary: ""
 ---
