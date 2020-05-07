@@ -56,9 +56,9 @@ highlight:
   # hljs: false
 
 prism_plugin:
-  mode: 'preprocess'    # realtime/preprocess
-  theme: 'tomorrow'
-  line_number: false    # default false
+  mode: "preprocess" # realtime/preprocess
+  theme: "tomorrow"
+  line_number: false # default false
   custom_css:
 
 # Home page setting
@@ -96,7 +96,15 @@ pagination_dir: page
 # Include / Exclude file(s)
 ## include:/exclude: options only apply to the 'source/' folder
 include:
+  - "about"
+  - "assets"
+  - "categories"
+  - "contact"
+  - "friends"
+  - "tags"
 exclude:
+  - "_post/**/*"
+  - "CNAME"
 ignore:
 
 # Extensions
