@@ -52,7 +52,7 @@ window.onmessage = recvMsg
 
 1、同顶级域名
 localhost域名`index.html`
-```html
+```plain
 <!DOCTYPE html>
 <html>
 <body>
@@ -72,7 +72,7 @@ localhost域名`index.html`
 ```
 
 localhost:8080域名`iframe.html`
-```html
+```plain
 <!DOCTYPE html>
 <html>
 <body>
@@ -89,7 +89,7 @@ localhost:8080域名`iframe.html`
 
 2、open形式
 localhost域名`index.html`
-```html
+```plain
 <!DOCTYPE html>
 <html>
 <body>
@@ -106,7 +106,7 @@ localhost域名`index.html`
 ```
 
 localhost:8080域名`iframe.html`
-```html
+```plain
 <!DOCTYPE html>
 <html>
 <body>
@@ -122,7 +122,7 @@ localhost:8080域名`iframe.html`
 
 3、iframe形式
 localhost域名`index.html`
-```html
+```plain
 <!DOCTYPE html>
 <html>
 <body>
@@ -139,7 +139,7 @@ localhost域名`index.html`
 ```
 
 localhost:8080域名`iframe.html`
-```html
+```plain
 <!DOCTYPE html>
 <html>
 <body>

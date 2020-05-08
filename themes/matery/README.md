@@ -2,7 +2,7 @@
 
 [![HitCount](http://hits.dwyl.io/blinkfox/hexo-theme-matery.svg)](http://hits.dwyl.io/blinkfox/hexo-theme-matery) [![Gitter](https://img.shields.io/gitter/room/blinkfox/hexo-theme-matery.svg)](https://gitter.im/hexo-theme-matery/Lobby?utm_source=badge) [![GitHub issues](https://img.shields.io/github/issues/blinkfox/hexo-theme-matery.svg)](https://github.com/blinkfox/hexo-theme-matery/issues) [![GitHub license](https://img.shields.io/github/license/blinkfox/hexo-theme-matery.svg)](https://github.com/blinkfox/hexo-theme-matery/blob/master/LICENSE) [![Download](https://img.shields.io/badge/downloads-master-green.svg)](https://codeload.github.com/blinkfox/hexo-theme-matery/zip/master) [![Hexo Version](https://img.shields.io/badge/hexo-%3E%3D%203.0-blue.svg)](http://hexo.io) [![GitHub forks](https://img.shields.io/github/forks/blinkfox/hexo-theme-matery.svg)](https://github.com/blinkfox/hexo-theme-matery/network) [![GitHub stars](https://img.shields.io/github/stars/blinkfox/hexo-theme-matery.svg)](https://github.com/blinkfox/hexo-theme-matery/stargazers)
 
-[🇨🇳中文说明](README_CN.md) | [DEMO](https://blinkfox.github.io/)
+[🇨🇳 中文说明](README_CN.md) | [DEMO](https://blinkfox.github.io/)
 
 > This is a Hexo blog theme with 'Material Design' and responsive design.
 
@@ -12,7 +12,7 @@
 - [Material Design](https://material.io/).
 - Responsive design,which can be displayed well on desktop, tablet, mobile phone, etc.
 - Home page carousel posts and changing 'banner' picture dynamically everday.
-- Blog posts list with waterflow(There will be 24 images if the articl dosn't have  featured pictures).
+- Blog posts list with waterflow(There will be 24 images if the articl dosn't have featured pictures).
 - Archive page with timeline.
 - Tags page of the **word cloud** and categories page of the **radar chart**
 - Rich 'About' page (including about me, posts charts, my projects, my skills, gallery etc.)
@@ -76,6 +76,7 @@ date: 2018-09-30 17:25:30
 type: "categories"
 layout: "categories"
 ---
+
 ```
 
 ### new tags page
@@ -95,6 +96,7 @@ date: 2018-09-10 18:23:38
 type: "tags"
 layout: "tags"
 ---
+
 ```
 
 ### new about page
@@ -114,6 +116,7 @@ date: 2018-09-30 17:25:30
 type: "about"
 layout: "about"
 ---
+
 ```
 
 ### new contact page (Optional)
@@ -133,6 +136,7 @@ date: 2018-09-30 17:25:30
 type: "contact"
 layout: "contact"
 ---
+
 ```
 
 > **Note**：The message board depends on a third-party comment system, please **activate** your comment system to be effective. And in the theme `_config.yml` file, the "**menu**" of the `19` to `21` line is configured, and the comment about the message board cloud be canceled.
@@ -154,30 +158,35 @@ date: 2018-12-12 21:25:30
 type: "friends"
 layout: "friends"
 ---
+
 ```
 
 Also, create a new `_data` directory in your blog's `source` directory and a new `friends.json` file in the `_data` directory. The contents of the file are as follows:
 
 ```json
-[{
+[
+  {
     "avatar": "http://image.luokangyuan.com/1_qq_27922023.jpg",
     "name": "MaJang",
     "introduction": "I am not a master, just looking for the master's footsteps.",
     "url": "http://luokangyuan.com/",
     "title": "Read More"
-}, {
+  },
+  {
     "avatar": "http://image.luokangyuan.com/4027734.jpeg",
     "name": "Blinkfox",
     "introduction": "Hello, I'm blinkfox, I like programming.",
     "url": "https://blinkfox.github.io/",
     "title": "Visit Blog"
-}, {
+  },
+  {
     "avatar": "http://image.luokangyuan.com/avatar.jpg",
     "name": "ja_rome",
     "introduction": "Ordinary steps can also go out of the great journey.",
     "url": "https://me.csdn.net/jlh912008548",
     "title": "Read More"
-}]
+  }
+]
 ```
 
 ### Menu navigation configuration
@@ -270,9 +279,9 @@ highlight:
   enable: false
 
 prism_plugin:
-  mode: 'preprocess'    # realtime/preprocess
-  theme: 'tomorrow'
-  line_number: false    # default false
+  mode: "preprocess" # realtime/preprocess
+  theme: "tomorrow"
+  line_number: false # default false
   custom_css:
 ```
 
@@ -307,7 +316,7 @@ Add such configurations in `_config.yml` file of Hexo:
 ```yaml
 permalink_pinyin:
   enable: true
-  separator: '-' # default: '-'
+  separator: "-" # default: '-'
 ```
 
 > **Note**: [hexo-abbrlink](https://github.com/rozbo/hexo-abbrlink) can genarate non-Chinese link in addtion to this plugin.
@@ -373,7 +382,7 @@ feed:
   hub:
   content:
   content_limit: 140
-  content_limit_delim: ' '
+  content_limit_delim: " "
   order_by: -date
 ```
 
@@ -427,31 +436,31 @@ To support music playing, you just need activate the `_config.yml` file of music
 # Whether to display the musics
 music:
   enable: true
-  title: 		   # non-fixed mode works
+  title: # non-fixed mode works
     enable: true
     show: Listen to music
-  server: netease   # require music platform: netease, tencent, kugou, xiami, baidu
-  type: playlist    # require song, playlist, album, search, artist
-  id: 503838841     # require song id / playlist id / album id / search keyword
-  fixed: false      # enable fixed mode
-  autoplay: false   # audio atuoplay
-  theme: '#42b983'
-  loop: 'all'       # player loop play, values: 'all', 'one', 'none'
-  order: 'random'   # player play order, values: 'list', 'random'
-  preload: 'auto'   # values: 'none', 'metadata', 'auto'
-  volume: 0.7       # default volume, notice that player will remember user setting, default volume will not work after user set volume themselves
-  listFolded: true  # indicate whether list should folded at first
+  server: netease # require music platform: netease, tencent, kugou, xiami, baidu
+  type: playlist # require song, playlist, album, search, artist
+  id: 503838841 # require song id / playlist id / album id / search keyword
+  fixed: false # enable fixed mode
+  autoplay: false # audio atuoplay
+  theme: "#42b983"
+  loop: "all" # player loop play, values: 'all', 'one', 'none'
+  order: "random" # player play order, values: 'list', 'random'
+  preload: "auto" # values: 'none', 'metadata', 'auto'
+  volume: 0.7 # default volume, notice that player will remember user setting, default volume will not work after user set volume themselves
+  listFolded: true # indicate whether list should folded at first
 ```
 
->`server` values :  `netease` (NetEase  cloud music) , `tencent` (QQMusic) , `kugou` (KuGouMusic) , `xiami` 
+> `server` values : `netease` (NetEase cloud music) , `tencent` (QQMusic) , `kugou` (KuGouMusic) , `xiami`
 >
->(XiamMusic) , `baidu` (BaiduMusic)
+> (XiamMusic) , `baidu` (BaiduMusic)
 >
->`type` values : `song`  ,   `playlist` , `album` , `search` , `artist` 
+> `type` values : `song` , `playlist` , `album` , `search` , `artist`
 >
->For example to get the `id`:open NetEase cloud music in the browser , click the playlist of my love , there will a string of 
+> For example to get the `id`:open NetEase cloud music in the browser , click the playlist of my love , there will a string of
 >
->numbers ,  the `playlist`\`s `id` just is the number.
+> numbers , the `playlist`\`s `id` just is the number.
 
 ## Post Front-matter
 
@@ -459,25 +468,26 @@ music:
 
 Everything in the Front-matter option is **not required**. But I still recommend at least filling in the values of `title` and `date`.
 
-| Options   | Defaults              | Description                                             |
-| ---------- | --------------------------- | ------------------------------------------------------------ |
-| title      | Markdown's file title | Post title, it is highly recommended to fill in this option |
-| date       | Date and time when the file created | Publish time, it is highly recommended to fill in this option, and it is best to ensure that it is globally unique |
-| author     | `author` in root `_config.yml` | Post author                                    |
-| img        | a value in `featureImages`  | Post feature image，For exampl: `http://xxx.com/xxx.jpg` |
-| top        | `true`                      | Recommended post (whether the post is topped), if the `top` value is `true`, it will be recommended as a homepage post. |
-| cover      | `false`                     | The `v1.0.2` version is added to indicate whether the post needs to be added to the homepage carousel cover. |
-| coverImg   | null                        | The new version of `v1.0.2` indicates that the post needs to display the image path on the cover of the homepage. If not, the default image of the post is used by default. |
-| password   | null                        | The post read the password. If you want to set the reading verification password for the article, you can set the value of `password`, which must be encrypted with `SHA256` to prevent others from seeing it. The premise is that the `verifyPassword` option is activated in the theme's `config.yml` |
-| toc        | `true`                      | Whether TOC is turned on or not, you can turn off the TOC function for an article. The premise is that the `toc` option is activated in the theme's `config.yml` |
-| mathjax    | `false`                     | Whether to enable math formula support, whether this article starts `mathjax`, and you need to open it in the theme `_config.yml` file. |
-| summary    | null                        | Post summary, custom post summary content, if the attribute has a value, the post card summary will display the text, otherwise the program will automatically intercept part of the article as a summary |
-| categories | null                        | Article classification, the classification of this topic represents a macroscopically large classification, only one article is recommended for one classification. |
-| tags       | null                        | Post label, a post can have multiple labels |
-| keywords   | Post Title                  | Post key Words With SEO                               |
-| reprintPolicy       | cc_by              | Post reprint policy, value could be one of cc_by, cc_by_nd, cc_by_sa, cc_by_nc, cc_by_nc_nd, cc_by_nc_sa, cc0, noreprint and pay |
+| Options       | Defaults                            | Description                                                                                                                                                                                                                                                                                             |
+| ------------- | ----------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| title         | Markdown's file title               | Post title, it is highly recommended to fill in this option                                                                                                                                                                                                                                             |
+| date          | Date and time when the file created | Publish time, it is highly recommended to fill in this option, and it is best to ensure that it is globally unique                                                                                                                                                                                      |
+| author        | `author` in root `_config.yml`      | Post author                                                                                                                                                                                                                                                                                             |
+| img           | a value in `featureImages`          | Post feature image，For exampl: `http://xxx.com/xxx.jpg`                                                                                                                                                                                                                                                |
+| top           | `true`                              | Recommended post (whether the post is topped), if the `top` value is `true`, it will be recommended as a homepage post.                                                                                                                                                                                 |
+| cover         | `false`                             | The `v1.0.2` version is added to indicate whether the post needs to be added to the homepage carousel cover.                                                                                                                                                                                            |
+| coverImg      | null                                | The new version of `v1.0.2` indicates that the post needs to display the image path on the cover of the homepage. If not, the default image of the post is used by default.                                                                                                                             |
+| password      | null                                | The post read the password. If you want to set the reading verification password for the article, you can set the value of `password`, which must be encrypted with `SHA256` to prevent others from seeing it. The premise is that the `verifyPassword` option is activated in the theme's `config.yml` |
+| toc           | `true`                              | Whether TOC is turned on or not, you can turn off the TOC function for an article. The premise is that the `toc` option is activated in the theme's `config.yml`                                                                                                                                        |
+| mathjax       | `false`                             | Whether to enable math formula support, whether this article starts `mathjax`, and you need to open it in the theme `_config.yml` file.                                                                                                                                                                 |
+| summary       | null                                | Post summary, custom post summary content, if the attribute has a value, the post card summary will display the text, otherwise the program will automatically intercept part of the article as a summary                                                                                               |
+| categories    | null                                | Article classification, the classification of this topic represents a macroscopically large classification, only one article is recommended for one classification.                                                                                                                                     |
+| tags          | null                                | Post label, a post can have multiple labels                                                                                                                                                                                                                                                             |
+| keywords      | Post Title                          | Post key Words With SEO                                                                                                                                                                                                                                                                                 |
+| reprintPolicy | cc_by                               | Post reprint policy, value could be one of cc_by, cc_by_nd, cc_by_sa, cc_by_nc, cc_by_nc_nd, cc_by_nc_sa, cc0, noreprint and pay                                                                                                                                                                        |
 
-> **Note**: 
+> **Note**:
+>
 > 1. post's featured piature will take remainder if not writing the `img` property,and chose the featured picture of theme to let all of post's picture **have their own characteristics**.
 > 2. The value of `date` should try to ensure that each article is unique, because `Gitalk` and `Gitment` recognize `id` in this topic are uniquely identified by the value of `date`.
 > 3. If you want to set the ability to read the verification password for the article, you should not only set the value of the password with SHA256 encryption in Front-matter, but also activate the configuration in the theme `_config.yml`.
@@ -492,6 +502,7 @@ The following are examples of the post's `Front-matter`.
 title: typora-vue-theme Theme introduction
 date: 2018-09-07 09:25:00
 ---
+
 ```
 
 ### The most comprehensive example
@@ -514,6 +525,7 @@ tags:
   - Typora
   - Markdown
 ---
+
 ```
 
 ## Screenshot
@@ -562,24 +574,27 @@ Search `.bg-color` to modify background color in `/source/css/matery.css` in the
 ```css
 /* The overall background color, including navigation, mobile navigation, footer, tab, etc.. */
 .bg-color {
-    background-image: linear-gradient(to right, #4cbf30 0%, #0f9d58 100%);
+  background-image: linear-gradient(to right, #4cbf30 0%, #0f9d58 100%);
 }
 
 @-webkit-keyframes rainbow {
-   /* Dynamically switch background colors. */
+  /* Dynamically switch background colors. */
 }
 
 @keyframes rainbow {
-    /* Dynamically switch background colors. */
+  /* Dynamically switch background colors. */
 }
 ```
 
 ### Modify banner picture and post's featured pictures
 
-You can change `banner` pictures in `/source/medias/banner` as you like .Theme code can switch  dynamically every day and just need 7 pictures.If you master `JavaScript`,you can change it to your favorite swithing logic,such as Random switching.The code of switching `banner`is in `<script></script>` of `/layout/_partial/bg-cover-content.ejs`file.
+You can change `banner` pictures in `/source/medias/banner` as you like .Theme code can switch dynamically every day and just need 7 pictures.If you master `JavaScript`,you can change it to your favorite swithing logic,such as Random switching.The code of switching `banner`is in `<script></script>` of `/layout/_partial/bg-cover-content.ejs`file.
 
 ```javascript
-$('.bg-cover').css('background-image', 'url(/medias/banner/' + new Date().getDay() + '.jpg)');
+$(".bg-cover").css(
+  "background-image",
+  "url(/medias/banner/" + new Date().getDay() + ".jpg)"
+);
 ```
 
 There are 24 featured pictures in `/source/medias/featureimages`,you can add or delete,and modify it in `_config.yml` at the sametime.
@@ -588,12 +603,12 @@ There are 24 featured pictures in `/source/medias/featureimages`,you can add or 
 
 - v1.2.2
   - Add the function of customizing post `keywords`;
-  - Add the function and configuration of static ribbon click switch;
-  - Set the word count, ribbon and site running time as `false` by default;
-  - Modify the meta attribute of the post's `description` to read the post's `summary` attribute first;
-  - Modified HTML tag of article title from `div` to` h1` title;
-  - Fixed the problem of incorrect footer `year` display;
-  - Removed redundant `setTimeout` js code from site runtime;
+      - Add the function and configuration of static ribbon click switch;
+      - Set the word count, ribbon and site running time as `false` by default;
+      - Modify the meta attribute of the post's `description` to read the post's `summary` attribute first;
+      - Modified HTML tag of article title from `div` to`h1` title;
+      - Fixed the problem of incorrect footer `year` display;
+      - Removed redundant `setTimeout` js code from site runtime;
 - v1.2.1
   - Added TOC's expand directory level settings and scroll bar function to prevent directory overflow when there are many directories;
   - Modified the display mode of the homepage to the previous mode;
