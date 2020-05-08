@@ -53,7 +53,7 @@ LESS——像写 javascript 一样书写 css
 
 ##### 引用
 
-```plain
+```html
 <link rel="stylesheet/less" type="text/css" href="index.less" />
 <!-- 必须加上/less -->
 <script src="less-1.3.3.min.js"></script>
@@ -74,11 +74,17 @@ LESS——像写 javascript 一样书写 css
 
 **基本设置**
 
-```plain
-<link rel="stylesheet/less" href="index.less">
-<script>less = { env: 'development'};</script>//声明开发模式
+```html
+<link rel="stylesheet/less" href="index.less" />
+<script>
+  less = { env: "development" };
+</script>
+//声明开发模式
 <script src="less-1.3.3.min.js"></script>
-<script>less.watch();</script>//调用观察模式
+<script>
+  less.watch();
+</script>
+//调用观察模式
 ```
 
 调用了观察模式后，就可以实现在每次保存时自动编译
@@ -437,7 +443,7 @@ body {
 
 **index.html**
 
-```plain
+```html
 <!DOCTYPE html>
 <html>
     <head>

@@ -16,7 +16,7 @@ excerpt: 浏览器异步加载JS有哪些方法？defer和async有什么区别�
 
 内置：
 
-```plain
+```html
 <script>
 console.log('加载完成')
 </script>
@@ -24,13 +24,13 @@ console.log('加载完成')
 
 外联：
 
-```plain
+```html
 <script src="" type="application/javascript"></script>
 ```
 
 而后，由于浏览器默认的脚本语言为JavaScript，因此type属性可以去掉。
 
-```plain
+```html
 <script src=""></script>
 ```
 
@@ -56,19 +56,19 @@ CSS文件可以边加载边渲染，而JS文件必须等到加载完成才能渲
 
 在ES6中，添加了JS模块化的标准，在script标签上添加`type="module"`即可声明为ES6模块。
 
-```plain
+```html
 <script type="module" src=""></script>
 ```
 
 对添加了`type="module"`的标签，浏览器默认会对其进行defer属性的处理，即等到整个页面加载完成后再执行，同时，也可以添加async标签，这样，该标签会在加载完成后执行。
 
-```plain
+```html
 <script type="module" src="" async></script>
 ```
 
 同时，添加了`type="module"`的标签也可以直接内嵌，这样浏览器会按照默认的加载方式加载。
 
-```plain
+```html
 <script type="module">
     import moduleA from './moduleA.js'
 	console.log('加载完成')

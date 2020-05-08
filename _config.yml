@@ -48,18 +48,34 @@ post_asset_folder: false
 relative_link: true
 future: true
 highlight:
-  enable: false
-  # line_number: false
-  # auto_detect: false
-  # tab_replace: ""
-  # wrap: true
-  # hljs: false
+  enable: true
+  line_number: false
+  auto_detect: false
+  tab_replace: ""
+  wrap: false
+  hljs: false
 
-prism_plugin:
-  mode: "preprocess" # realtime/preprocess
-  theme: "tomorrow"
-  line_number: false # default false
-  custom_css:
+# prism_plugin:
+#   mode: "preprocess" # realtime/preprocess
+#   theme: "tomorrow"
+#   line_number: false # default false
+#   custom_css:
+
+marked:
+  gfm: true
+  pedantic: false
+  breaks: false
+  smartLists: true
+  smartypants: true
+  modifyAnchors: 0
+  autolink: true
+  sanitizeUrl: false
+  headerIds: true
+  prependRoot: false
+  external_link:
+    enable: false
+    exclude: []
+    nofollow: false
 
 # Home page setting
 # path: Root path for your blogs index page. (default = '')

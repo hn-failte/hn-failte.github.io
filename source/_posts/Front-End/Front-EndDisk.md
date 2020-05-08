@@ -47,7 +47,7 @@ excerpt: 有关前端知识体系的大纲
 
 ##### 2 meta viewport 相关
 
-```plain
+```html
 <!DOCTYPE html>  H5标准声明，使用 HTML5 doctype，不区分大小写
 <head lang="en"> 标准的 lang 属性写法
 <meta charset=’utf-8′>    声明文档使用的字符编码
@@ -158,7 +158,7 @@ box-sizing: border-box;
 - 根元素
   demo
 
-```plain
+```html
 <section class="top">
 	<h1>上</h1>
 	这块margin-bottom:30px;
@@ -1477,7 +1477,7 @@ module.exports = function(src) {
    浏览器会分析这个 url，并设置好请求报文发出。请求报文中包括请求行、请求头、空行、请求主体。https 默认请求端口 443， http 默认 80。
    常见的 http 请求如下
 
-```plain
+```html
 POST / HTTP1.1
 Host:www.wrox.com
 User-Agent:Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1; SV1; .NET CLR 2.0.50727; .NET CLR 3.0.04506.648; .NET CLR 3.5.21022)
@@ -1494,7 +1494,7 @@ name=Professional%20Ajax&publisher=Wiley
 后端处理返回http报文如下
 ```
 
-```plain
+```html
 HTTP/1.1 200 OK
 Date: Fri, 22 May 2009 06:07:21 GMT
 Content-Type: text/html; charset=UTF-8
