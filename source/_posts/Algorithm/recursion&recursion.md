@@ -119,7 +119,7 @@ const sum = (target) => {
 
 不断的将大的问题拆解成小的问题，回归小问题的结果到大问题上，最终得出最终结果。
 
-[![递归](https://s3.ax1x.com/2021/02/20/y5fTzV.md.gif)](https://imgchr.com/i/y5fTzV)
+[![递归](https://s3.ax1x.com/2021/02/20/y5fTzV.gif)](https://imgchr.com/i/y5fTzV)
 
 例：
 
