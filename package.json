@@ -11,7 +11,8 @@
     "deploy:b": "hexo cl && npm version majo && hexo d && git push origin v2",
     "dev": "hexo server",
     "server": "hexo server",
-    "start": "hexo server"
+    "start": "hexo server",
+    "post": "hexo new post"
   },
   "hexo": {
     "version": "4.2.0"
