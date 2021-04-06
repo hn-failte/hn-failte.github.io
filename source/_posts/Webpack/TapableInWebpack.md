@@ -201,24 +201,26 @@ hooks.call(1, 2, 3);
 2、SyncBailHook
 
 ```js
-const { SyncBailHook } = require('../lib')
+const { SyncBailHook } = require("../lib");
 
-const hooks = new SyncBailHook(['params'])
+const hooks = new SyncBailHook(["params"]);
 
-hooks.tap('a', (params) => {
-    console.log('hooks a', params)
-    return void 0
-})
-hooks.tap('b', () => {
-    console.log('hooks b')
-    return true
-})
-hooks.tap('c', () => {
-    // 前一个 tap 的返回值不为 undefined 时，不会再执行后续的 tap
-    console.log('hooks c')
-})
+hooks.tap("a", (params) => {
+  console.log("hooks a", params);
+  return void 0;
+});
 
-hooks.call('start')
+hooks.tap("b", (params) => {
+  console.log("hooks b", params);
+  return true;
+});
+
+hooks.tap("c", (params) => {
+  // 前一个 tap 的返回值不为 undefined 时，不会再执行后续的 tap
+  console.log("hooks c", params);
+});
+
+hooks.call("start");
 ```
 
 3、SyncWaterfallHook
@@ -238,14 +240,14 @@ hooks.tap("b", (arg, ...args) => {
   // 后一个钩子的参数是前一个钩子的返回值，参数会替换最初传入的参数
   const result = arg + 10;
   console.log(result);
-  console.log(args, 'args');
+  console.log(args, "args");
   return result;
 });
 
 hooks.tap("c", (arg, ...args) => {
   const result = arg + 10;
   console.log(result);
-  console.log(args, 'args');
+  console.log(args, "args");
   return result;
 });
 
@@ -255,7 +257,31 @@ hooks.call(1, 2, 3);
 4、SyncLoopHook
 
 ```js
+const { SyncLoopHook } = require("../lib");
 
+const hooks = new SyncLoopHook(["arg"]);
+
+let count = 0;
+
+hooks.tap("a", (arg) => {
+  console.log("a", arg, count);
+  return void 0;
+});
+
+hooks.tap("b", (arg) => {
+  // b 是一个可以循环的 tap
+  // 在 b 之前的 tap 每次在 b 执行时，都会再次执行
+  console.log("b", arg, count);
+  return count > 10 ? void 0 : count++;
+});
+
+hooks.tap("c", (arg) => {
+  // 在 b 执行完成之前，c 都不会执行
+  console.log("c", arg, count);
+  return count > 10 ? void 0 : count++;
+});
+
+hooks.call("loop");
 ```
 
 5、AsyncParallelHook
@@ -293,7 +319,45 @@ hooks.callAsync("start", () => {
 6、AsyncParallelBailHook
 
 ```js
+const { AsyncParallelBailHook } = require("../lib");
 
+// 异步并行保释 Hook
+const hooks = new AsyncParallelBailHook(["params"]);
+
+hooks.tapPromise("a", (params, callback) => {
+  // tapPromise 不带有回调，因此无法使用promise进行保释
+  console.log(callback, 'callback');
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      console.log("hooks a", params);
+      resolve(void 0);
+    }, 800);
+  });
+});
+
+hooks.tapAsync("b", (params, callback) => {
+  setTimeout(() => {
+    console.log("hooks b", params);
+    // 进行保释，该操作会使回调在所以 tap 运行完成后执行
+    callback(true);
+  }, 300);
+});
+
+hooks.tapAsync("c", (params, callback) => {
+  setTimeout(() => {
+    console.log("hooks c", params);
+  }, 500);
+});
+
+hooks.tap('d', (params, callback) => {
+  // tap 同样不带有回调，因此无法使用promise进行保释
+  console.log(callback, 'callback');
+  console.log("hooks d", params);
+})
+
+hooks.callAsync("start", () => {
+  console.log("done");
+});
 ```
 
 7、AsyncSeriesHook
