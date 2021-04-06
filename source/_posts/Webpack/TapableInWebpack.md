@@ -173,7 +173,7 @@ class HookCodeFactory {
 使用
 
 ```js
-const { SyncHook } = require("tapable");
+const { SyncHook } = require("../lib");
 
 // 实例话一个Hooks类进行使用，传递的字符串参数会作为执行函数的参数
 const hooks = new SyncHook(["arg1", "arg2", "arg3"]);
@@ -188,46 +188,68 @@ hooks.tap("b", (...args) => {
   console.log(args, "b");
 });
 
+// 同步监听
 hooks.tap("c", (...args) => {
   console.log(args, "c");
 });
 
 // call的参数会传递给前面监听的事件
-hooks.call("call", () => {
-  // 同步方法没有回调，若需要回调，直接在外边写即可
-  console.log("call");
-});
+// 同步方法没有回调，若需要回调，直接在外边写即可
+hooks.call(1, 2, 3);
 ```
 
 2、SyncBailHook
 
 ```js
-const { SyncBailHook } = require("tapable");
+const { SyncBailHook } = require('../lib')
 
-const hooks = new SyncBailHook(["params"]);
+const hooks = new SyncBailHook(['params'])
 
-hooks.tap("a", () => {
-  console.log("hooks a");
-  return void 0;
-});
-hooks.tap("b", () => {
-  console.log("hooks b");
-  return true;
-});
-hooks.tap("c", () => {
-  // 前一个 tap 的返回值不为 undefined 时，不会再执行后续的 tap
-  console.log("hooks c");
-});
+hooks.tap('a', (params) => {
+    console.log('hooks a', params)
+    return void 0
+})
+hooks.tap('b', () => {
+    console.log('hooks b')
+    return true
+})
+hooks.tap('c', () => {
+    // 前一个 tap 的返回值不为 undefined 时，不会再执行后续的 tap
+    console.log('hooks c')
+})
 
-hooks.call("start", () => {
-  console.log("done");
-});
+hooks.call('start')
 ```
 
 3、SyncWaterfallHook
 
 ```js
+const { SyncWaterfallHook } = require("../lib");
 
+const hooks = new SyncWaterfallHook(["arg1", "arg2", "arg3"]);
+
+hooks.tap("a", (a, b, c) => {
+  const result = a + b + c;
+  console.log(result);
+  return result;
+});
+
+hooks.tap("b", (arg, ...args) => {
+  // 后一个钩子的参数是前一个钩子的返回值，参数会替换最初传入的参数
+  const result = arg + 10;
+  console.log(result);
+  console.log(args, 'args');
+  return result;
+});
+
+hooks.tap("c", (arg, ...args) => {
+  const result = arg + 10;
+  console.log(result);
+  console.log(args, 'args');
+  return result;
+});
+
+hooks.call(1, 2, 3);
 ```
 
 4、SyncLoopHook
