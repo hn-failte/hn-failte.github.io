@@ -210,6 +210,7 @@ hooks.call(1, 2, 3);
 ```js
 const { SyncBailHook } = require("../lib");
 
+// 同步保释 Hook
 const hooks = new SyncBailHook(["params"]);
 
 hooks.tap("a", (params) => {
@@ -235,6 +236,7 @@ hooks.call("start");
 ```js
 const { SyncWaterfallHook } = require("../lib");
 
+// 同步流水线 Hook
 const hooks = new SyncWaterfallHook(["arg1", "arg2", "arg3"]);
 
 hooks.tap("a", (a, b, c) => {
@@ -266,12 +268,14 @@ hooks.call(1, 2, 3);
 ```js
 const { SyncLoopHook } = require("../lib");
 
+// 同步循环 Hook
 const hooks = new SyncLoopHook(["arg"]);
 
 let count = 0;
 
 hooks.tap("a", (arg) => {
   console.log("a", arg, count);
+  // 在返回 undefined 后，该 tap 不会再自己执行（可以被后续的 tap 触发被动执行）
   return void 0;
 });
 
@@ -490,7 +494,42 @@ hooks.callAsync("start", () => {
 });
 ```
 
-10、HookMap
+10、AsyncSeriesLoopHook
+
+```js
+const { AsyncSeriesLoopHook } = require("../lib");
+
+// 异步串行循环 Hook
+// 该 Hook 是异步串行 Hook 与 同步循环 Hook 的结合
+const hooks = new AsyncSeriesLoopHook(["params"]);
+
+let count = 0;
+
+hooks.tapPromise("a", () => {
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      console.log("hooks a");
+      resolve(count > 2 ? void 0 : count++);
+    }, 500);
+  });
+});
+
+hooks.tapPromise("b", () => {
+  // 先执行完 a 后，才会执行 b
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      console.log("hooks b");
+      resolve(count > 3 ? void 0 : count++);
+    }, 500);
+  });
+});
+
+hooks.callAsync("start", () => {
+  console.log("done");
+});
+```
+
+11、HookMap
 
 ```js
 const { HookMap, SyncHook, SyncWaterfallHook } = require("../lib");
@@ -553,7 +592,7 @@ const hooks = new HookMap((key) => {
 }
 ```
 
-11、MultiHook
+12、MultiHook
 
 ```js
 const { MultiHook, SyncHook, SyncBailHook } = require("../lib");
