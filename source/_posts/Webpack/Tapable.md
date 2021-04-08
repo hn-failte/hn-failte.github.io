@@ -1,5 +1,5 @@
 ---
-title: tapable 在 Webpack 中的应用
+title: webpack 之 tapable 的讲解与使用
 layout: post
 author: hn-failte
 categories: Webpack
@@ -9,12 +9,14 @@ top: true
 mathjax: false
 tags:
   - Webpack
-excerpt: tapable 的使用，与 tapable 在 Webpack 中的应用
+excerpt: tapable 是 webpack 的基石，webpack 是一套打包工具，而这套打包工具的流程管理正是用的 tapable。
 summary: ""
 date: 2021-04-05 10:49:22
 ---
 
 # tapable 在 Webpack 中的应用
+
+tapable 是 webpack 的基石，webpack 是一套打包工具，而这套打包工具的流程管理正是用的 tapable。
 
 ## 一、tapable 是什么
 
@@ -40,6 +42,11 @@ tapable 主要做的事情就是用于做各种时间的监听，提供了一系
 - AsyncSeriesHook
 - AsyncSeriesBailHook
 - AsyncSeriesWaterfallHook
+
+除此之外，tapable 还提供了用于批量管理钩子的 Hook:
+
+- HookMap
+- MutiHooks
 
 接下来，我们来说说这些钩子的用法。
 
@@ -326,7 +333,7 @@ const hooks = new AsyncParallelBailHook(["params"]);
 
 hooks.tapPromise("a", (params, callback) => {
   // tapPromise 不带有回调，因此无法使用promise进行保释
-  console.log(callback, 'callback');
+  console.log(callback, "callback");
   return new Promise((resolve, reject) => {
     setTimeout(() => {
       console.log("hooks a", params);
@@ -349,11 +356,11 @@ hooks.tapAsync("c", (params, callback) => {
   }, 500);
 });
 
-hooks.tap('d', (params, callback) => {
+hooks.tap("d", (params, callback) => {
   // tap 同样不带有回调，因此无法使用promise进行保释
-  console.log(callback, 'callback');
+  console.log(callback, "callback");
   console.log("hooks d", params);
-})
+});
 
 hooks.callAsync("start", () => {
   console.log("done");
@@ -395,13 +402,92 @@ hooks.callAsync("start", () => {
 8、AsyncSeriesBailHook
 
 ```js
+const { AsyncSeriesBailHook } = require("../lib");
 
+// 异步串行保释 Hook
+const hooks = new AsyncSeriesBailHook(["params"]);
+
+hooks.tapPromise("a", (params) => {
+  // tapPromise 没有回调，但可以把resolve的值当做返回值
+  // promise 最后的值为非 undefined 时会执行最后的回调
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      console.log("hooks a", params);
+      // 若未进行 resolve 或 reject 操作，则后续的 tap 将无法正常执行
+      resolve();
+    }, 800);
+  }).then((res) => res);
+});
+
+hooks.tapAsync("b", (params, callback) => {
+  setTimeout(() => {
+    console.log("hooks b", params);
+    // 进行保释，该操作会使回调在所以 tap 运行完成后执行
+    // 若未执行回调，则后续的 tap 将无法正常执行
+    callback();
+  }, 300);
+});
+
+hooks.tapAsync("c", (params, callback) => {
+  setTimeout(() => {
+    console.log("hooks c", params);
+    callback();
+  }, 500);
+});
+
+hooks.tap("d", (params) => {
+  // tap 同样不带有回调，因此无法使用promise进行保释
+  console.log("hooks d", params);
+});
+
+hooks.callAsync("start", () => {
+  // 若所有的 tap 均已执行完，则正常执行回调
+  console.log("done");
+});
 ```
 
 9、AsyncSeriesWaterfallHook
 
 ```js
+const { AsyncSeriesWaterfallHook } = require("../lib");
 
+// 异步串行流水线 Hook
+const hooks = new AsyncSeriesWaterfallHook(["params"]);
+
+hooks.tapPromise("a", (params) => {
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      console.log("hooks a", params);
+      resolve("a");
+    }, 800);
+  }).then((res) => res);
+});
+
+hooks.tapAsync("b", (params, callback) => {
+  setTimeout(() => {
+    console.log("hooks b", params);
+    // 当返回值为 undefined 时，后续的 tap 将会执行，且可携带参数到下一个函数中
+    // 若未携带参数，则默认为上一 tap 传递的参数
+    callback(void 0, "b");
+  }, 300);
+});
+
+hooks.tapAsync("c", (params, callback) => {
+  setTimeout(() => {
+    console.log("hooks c", params);
+    // 当返回值不为 undefined 时，后续的 tap 将不会执行
+    callback(true, "c");
+  }, 500);
+});
+
+hooks.tap("d", (params) => {
+  console.log("hooks d", params);
+});
+
+hooks.callAsync("start", () => {
+  // 若所有可执行的 tap 均已执行完，则正常执行回调
+  console.log("done");
+});
 ```
 
 ## 三、tapable 在 webpack 中的使用
