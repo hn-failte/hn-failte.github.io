@@ -490,4 +490,94 @@ hooks.callAsync("start", () => {
 });
 ```
 
+10、HookMap
+
+```js
+const { HookMap, SyncHook, SyncWaterfallHook } = require("../lib");
+
+// HookMap 的传参是一个函数，函数需要返回一个 Hook 实例
+// HookMap 可以包含不同的 Hook
+const hooks = new HookMap((key) => {
+  if (key === "one") return new SyncHook(["arg"]);
+  else return new SyncWaterfallHook(["arg"]);
+});
+
+{
+  // 通过 for 方法可以创建一个对应该 key 的 hook
+  hooks.for("one").tap("a", (arg) => {
+    console.log("a", arg);
+  });
+
+  // 通过 get 方法可以取出一个对应该 key 的 hook
+  hooks.get("one").call("one");
+}
+
+{
+  const two = hooks.for("two");
+
+  two.tap("a", (arg) => {
+    console.log("a", arg);
+    return "a";
+  });
+
+  two.tap("b", (arg) => {
+    console.log("b", arg);
+  });
+
+  two.call("two");
+}
+
+{
+  // 挟持器，可以在创建 Hook 的时候挟持到 key 和 hook
+  hooks.intercept({
+    factory(key, hook) {
+      // key 是传入时的 key，hook 是未加挟持时即将生成的 hook 实例
+      return new SyncHook();
+    },
+  });
+
+  let three = hooks.for("three");
+
+  three = hooks.get("three");
+
+  three.tap("a", (arg) => {
+    console.log("a", arg);
+    return "a";
+  });
+
+  three.tap("b", (arg) => {
+    console.log("b", arg);
+  });
+
+  three.call("three");
+}
+```
+
+11、MultiHook
+
+```js
+const { MultiHook, SyncHook, SyncBailHook } = require("../lib");
+
+const sync = new SyncHook(["arg"]);
+const syncBail = new SyncBailHook(["arg"]);
+
+// 将需要批量操作的 hook 放入该类中可以实现批量 tap
+const hooks = new MultiHook([sync, syncBail]);
+
+// 在进行 tap 时，会批量的进行 注册
+hooks.tap("a", (arg) => {
+  console.log("a", arg);
+  // SyncBailHook 在返回非 undefined 后，下一个 tap 将不会执行
+  return true;
+});
+
+hooks.tap("b", (arg) => {
+  console.log("b", arg);
+});
+
+sync.call("start");
+
+syncBail.call("start");
+```
+
 ## 三、tapable 在 webpack 中的使用
