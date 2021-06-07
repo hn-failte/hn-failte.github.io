@@ -620,3 +620,96 @@ syncBail.call("start");
 ```
 
 ## 三、tapable 在 webpack 中的使用
+
+tapable 贯穿了 webpack 的整个构建流程
+
+1、简述
+
+webpack 的编译流程都是由一个一个的 tap hook 组成的
+
+webpack 的插件通过 tap 某个流程可以实现注册事件的功能
+
+2、单实例构建
+
+```js
+class Compiler {
+  constructor(context) {
+    this.hooks = Object.freeze({
+      initialize: new SyncHook([]),
+      shouldEmit: new SyncBailHook(["compilation"]),
+      done: new AsyncSeriesHook(["stats"]),
+      afterDone: new SyncHook(["stats"]),
+      additionalPass: new AsyncSeriesHook([]),
+      beforeRun: new AsyncSeriesHook(["compiler"]),
+      run: new AsyncSeriesHook(["compiler"]),
+      emit: new AsyncSeriesHook(["compilation"]),
+      assetEmitted: new AsyncSeriesHook(["file", "info"]),
+      afterEmit: new AsyncSeriesHook(["compilation"]),
+      thisCompilation: new SyncHook(["compilation", "params"]),
+      compilation: new SyncHook(["compilation", "params"]),
+      normalModuleFactory: new SyncHook(["normalModuleFactory"]),
+      contextModuleFactory: new SyncHook(["contextModuleFactory"]),
+      beforeCompile: new AsyncSeriesHook(["params"]),
+      compile: new SyncHook(["params"]),
+      make: new AsyncParallelHook(["compilation"]),
+      finishMake: new AsyncSeriesHook(["compilation"]),
+      afterCompile: new AsyncSeriesHook(["compilation"]),
+      watchRun: new AsyncSeriesHook(["compiler"]),
+      failed: new SyncHook(["error"]),
+      invalid: new SyncHook(["filename", "changeTime"]),
+      watchClose: new SyncHook([]),
+      shutdown: new AsyncSeriesHook([]),
+      infrastructureLog: new SyncBailHook(["origin", "type", "args"]),
+      environment: new SyncHook([]),
+      afterEnvironment: new SyncHook([]),
+      afterPlugins: new SyncHook(["compiler"]),
+      afterResolvers: new SyncHook(["compiler"]),
+      entryOption: new SyncBailHook(["context", "entry"]),
+    });
+  }
+}
+```
+
+可以清楚的看到构建通过 tapable 为构建创建了 29 个钩子，可以对这 29 个钩子订阅事件，从而在构建时进行触发。
+
+webpack 的插件就是通过该方式进行编写的，我们可以通过该类方式使得我们的自定义插件可以起到不同的作用。
+
+3、webpack 多实例构建
+
+```js
+class MultiCompiler {
+  constructor() {
+    /* 省略 */
+    this.hooks = Object.freeze({
+      done: new SyncHook(["stats"]),
+      invalid: new MultiHook(compilers.map((c) => c.hooks.invalid)),
+      run: new MultiHook(compilers.map((c) => c.hooks.run)),
+      watchClose: new SyncHook([]),
+      watchRun: new MultiHook(compilers.map((c) => c.hooks.watchRun)),
+      infrastructureLog: new MultiHook(
+        compilers.map((c) => c.hooks.infrastructureLog)
+      ),
+    });
+  }
+}
+```
+
+可以清晰的看到 webpack 通过 tapable 对所有的编译做了统一的钩子进行管理
+
+## 四、总结
+
+1、优缺点
+
+tapable 可以将一个流程划分为较细的一些步骤进行管理，在每个步骤中都能通过不同的方式进行管理，适用于比较大型的流程管理
+
+但是，也正是因为如此，tapable 在小型的项目中显得臃肿，小型项目更适合简单的事件订阅。
+
+2、适用场景
+
+通常的，对于一些业务比较复杂的项目，流程较为麻烦时，可以使用 tapable 对项目进行管理。
+
+通过 tapable，可以将项目的各个流程进行钩子的插入，从而更方便的进行管理。
+
+3、适用项目
+
+主要适用于构建工具、后端项目、前端离线管理项目、配置化表单等。
