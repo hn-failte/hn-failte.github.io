@@ -453,19 +453,18 @@ const change = (coins: number[], n: number) => {
 ##### (2) 解题代码
 
 ```ts
-const change = (coins: number[], n: number) => {
-  let Max = n + 1;
-  const dp = new Array(Max);
-  dp.fill(Max);
-  dp[0] = 0;
-  for (let i = 1; i <= n; ++i) {
-    for (let j = 0; j < coins.length; ++j) {
-      if (coins[j] <= i) {
-        dp[i] = Math.min(dp[i], dp[i - coins[j]] + 1);
-      }
-    }
+const change = (coins: number[], n: number, cache: Map<number, number>) => {
+  let optimal = -1;
+  if (n < 0) return optimal;
+  if (cache.has[n]) return cache.get(n);
+  for (const coin of coins) {
+    if (n === coin) return 1;
+    const subOptimal = change(coins, n - coin, cache);
+    if (subOptimal === -1) continue;
+    if (optimal === -1 || optimal > subOptimal + 1) optimal = subOptimal + 1;
   }
-  return dp[n] > n ? -1 : dp[n];
+  cache.set(n, optimal);
+  return optimal;
 };
 
 (() => {
