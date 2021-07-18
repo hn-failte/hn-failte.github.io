@@ -1,6 +1,6 @@
 {
   "name": "failte.cn",
-  "version": "0.3.0-alpha",
+  "version": "0.3.0",
   "private": true,
   "scripts": {
     "dev": "vuepress dev docs",

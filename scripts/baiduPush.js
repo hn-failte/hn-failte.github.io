@@ -44,12 +44,9 @@ async function main() {
   });
 
   cd(path.resolve(__dirname, "../"));
-  const { stdout } = await exec(
+  await exec(
     `sudo curl -H 'Content-Type:text/plain' --data-binary '@urls.txt' 'http://data.zz.baidu.com/urls?site=https://failte.cn&token=nbmU3aAMJG1ZRsZs'`
   );
 
-  if (stdout) {
-    console.log(stdout);
-    rm(path.resolve(__dirname, "./urls.txt"));
-  }
+  rm(path.resolve(__dirname, "../urls.txt"));
 }
