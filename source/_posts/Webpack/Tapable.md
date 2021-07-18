@@ -48,9 +48,9 @@ tapable 主要做的事情就是用于做各种时间的监听，提供了一系
 - HookMap
 - MutiHooks
 
-接下来，我们来说说这些钩子的用法。
+接下来，我们来看看这些钩子的一些实现。
 
-## 二、tapable 基本钩子
+## 二、tapable 基本钩子的实现
 
 1、基本的 Hook 类
 
@@ -151,11 +151,72 @@ class HookCodeFactory {
     this._args = undefined; // 用于存储初始的options参数
   }
 
-  // 该方法会通过 new Function() 将传参 args 与字符串 code 实例化为一个函数
+  // 核心代码：该方法会通过 new Function() 将传参 args 与字符串 code 实例化为一个函数
   create(options) {
-    // 该处做了简化处理
-    let code = ``;
-    let fn = new Function(this.args(), code);
+    this.init(options);
+    let fn;
+    switch (this.options.type) {
+      case "sync":
+        fn = new Function(
+          this.args(),
+          '"use strict";\n' +
+            this.header() +
+            this.contentWithInterceptors({
+              onError: (err) => `throw ${err};\n`,
+              onResult: (result) => `return ${result};\n`,
+              resultReturns: true,
+              onDone: () => "",
+              rethrowIfPossible: true,
+            })
+        );
+        break;
+      case "async":
+        fn = new Function(
+          this.args({
+            after: "_callback",
+          }),
+          '"use strict";\n' +
+            this.header() +
+            this.contentWithInterceptors({
+              onError: (err) => `_callback(${err});\n`,
+              onResult: (result) => `_callback(null, ${result});\n`,
+              onDone: () => "_callback();\n",
+            })
+        );
+        break;
+      case "promise":
+        let errorHelperUsed = false;
+        const content = this.contentWithInterceptors({
+          onError: (err) => {
+            errorHelperUsed = true;
+            return `_error(${err});\n`;
+          },
+          onResult: (result) => `_resolve(${result});\n`,
+          onDone: () => "_resolve();\n",
+        });
+        let code = "";
+        code += '"use strict";\n';
+        code += this.header();
+        code += "return new Promise((function(_resolve, _reject) {\n";
+        if (errorHelperUsed) {
+          code += "var _sync = true;\n";
+          code += "function _error(_err) {\n";
+          code += "if(_sync)\n";
+          code +=
+            "_resolve(Promise.resolve().then((function() { throw _err; })));\n";
+          code += "else\n";
+          code += "_reject(_err);\n";
+          code += "};\n";
+        }
+        code += content;
+        if (errorHelperUsed) {
+          code += "_sync = false;\n";
+        }
+        code += "}));\n";
+        fn = new Function(this.args(), code);
+        break;
+    }
+    this.deinit();
     return fn;
   }
 
@@ -171,7 +232,115 @@ class HookCodeFactory {
 }
 ```
 
-## 三、tapable 扩展钩子
+看完了基本钩子的实现，其实，扩展钩子也就是在其基础上重写了一部分方法。接下来我们来试试基于基本钩子进行了继承的扩展钩子的用法。
+
+## 三、tapable 扩展钩子的实现
+
+这里，我们重点对其中最复杂的 SyncWaterfallHook、AsyncSeriesWaterfallHook 的源码做分析
+
+1、SyncWaterfallHook
+
+```js
+const Hook = require("./Hook");
+const HookCodeFactory = require("./HookCodeFactory");
+
+class SyncWaterfallHookCodeFactory extends HookCodeFactory {
+  content({ onError, onResult, resultReturns, rethrowIfPossible }) {
+    return this.callTapsSeries({
+      onError: (i, err) => onError(err),
+      onResult: (i, result, next) => {
+        let code = "";
+        code += `if(${result} !== undefined) {\n`;
+        code += `${this._args[0]} = ${result};\n`;
+        code += `}\n`;
+        code += next();
+        return code;
+      },
+      onDone: () => onResult(this._args[0]),
+      doneReturns: resultReturns,
+      rethrowIfPossible,
+    });
+  }
+}
+
+const factory = new SyncWaterfallHookCodeFactory();
+
+const TAP_ASYNC = () => {
+  throw new Error("tapAsync is not supported on a SyncWaterfallHook");
+};
+
+const TAP_PROMISE = () => {
+  throw new Error("tapPromise is not supported on a SyncWaterfallHook");
+};
+
+const COMPILE = function (options) {
+  factory.setup(this, options);
+  return factory.create(options);
+};
+
+function SyncWaterfallHook(args = [], name = undefined) {
+  if (args.length < 1)
+    throw new Error("Waterfall hooks must have at least one argument");
+  const hook = new Hook(args, name);
+  hook.constructor = SyncWaterfallHook;
+  hook.tapAsync = TAP_ASYNC;
+  hook.tapPromise = TAP_PROMISE;
+  hook.compile = COMPILE;
+  return hook;
+}
+
+SyncWaterfallHook.prototype = null;
+
+module.exports = SyncWaterfallHook;
+```
+
+2、AsyncSeriesWaterfallHook
+
+```js
+const Hook = require("./Hook");
+const HookCodeFactory = require("./HookCodeFactory");
+
+class AsyncSeriesWaterfallHookCodeFactory extends HookCodeFactory {
+  content({ onError, onResult, onDone }) {
+    return this.callTapsSeries({
+      onError: (i, err, next, doneBreak) => onError(err) + doneBreak(true),
+      onResult: (i, result, next) => {
+        let code = "";
+        code += `if(${result} !== undefined) {\n`;
+        code += `${this._args[0]} = ${result};\n`;
+        code += `}\n`;
+        code += next();
+        return code;
+      },
+      onDone: () => onResult(this._args[0]),
+    });
+  }
+}
+
+const factory = new AsyncSeriesWaterfallHookCodeFactory();
+
+const COMPILE = function (options) {
+  factory.setup(this, options);
+  return factory.create(options);
+};
+
+function AsyncSeriesWaterfallHook(args = [], name = undefined) {
+  if (args.length < 1)
+    throw new Error("Waterfall hooks must have at least one argument");
+  const hook = new Hook(args, name);
+  hook.constructor = AsyncSeriesWaterfallHook;
+  hook.compile = COMPILE;
+  hook._call = undefined;
+  hook.call = undefined;
+  return hook;
+}
+
+AsyncSeriesWaterfallHook.prototype = null;
+
+module.exports = AsyncSeriesWaterfallHook;
+```
+
+## 三、tapable 扩展钩子的使用
 
 注意：所有相关同步的 hooks，异步 tap 均重写为了报错
 
