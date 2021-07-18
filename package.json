@@ -1,37 +1,31 @@
 {
   "name": "failte.cn",
-  "version": "0.2.5",
+  "version": "0.3.0-alpha",
   "private": true,
   "scripts": {
-    "build": "hexo generate",
-    "clean": "hexo clean",
-    "deploy": "hexo cl && hexo d",
-    "deploy:s": "hexo cl && npm version patch && hexo d && git push origin v2",
-    "deploy:m": "hexo cl && npm version minor && hexo d && git push origin v2",
-    "deploy:b": "hexo cl && npm version majo && hexo d && git push origin v2",
-    "dev": "hexo server",
-    "server": "hexo server",
-    "start": "hexo server",
-    "post": "hexo new post"
+    "dev": "vuepress dev docs",
+    "build": "vuepress build docs",
+    "deploy": "node scripts/deploy",
+    "editFm": "node scripts/editFrontmatter",
+    "baiduPush": "node scripts/baiduPush"
   },
-  "hexo": {
-    "version": "4.2.1"
-  },
+  "license": "MIT",
   "dependencies": {
-    "hexo": "^4.0.0",
-    "hexo-deployer-git": "^2.1.0",
-    "hexo-filter-github-emojis": "^2.1.0",
-    "hexo-generator-archive": "^1.0.0",
-    "hexo-generator-category": "^1.0.0",
-    "hexo-generator-feed": "^2.2.0",
-    "hexo-generator-index": "^1.0.0",
-    "hexo-generator-search": "^2.4.0",
-    "hexo-generator-tag": "^1.0.0",
-    "hexo-render-pug": "^2.1.4",
-    "hexo-renderer-ejs": "^1.0.0",
-    "hexo-renderer-markdown-it": "^4.1.0",
-    "hexo-renderer-marked": "^2.0.0",
-    "hexo-renderer-stylus": "^1.1.0",
-    "hexo-server": "^1.0.0"
+    "chalk": "^4.1.1",
+    "dayjs": "^1.9.7",
+    "execa": "^5.1.1",
+    "inquirer": "^7.1.0",
+    "json2yaml": "^1.1.0",
+    "vuepress": "1.8.0",
+    "vuepress-plugin-baidu-autopush": "^1.0.1",
+    "vuepress-plugin-baidu-tongji": "^1.0.1",
+    "vuepress-plugin-comment": "^0.7.3",
+    "vuepress-plugin-demo-block": "^0.7.2",
+    "vuepress-plugin-one-click-copy": "^1.0.2",
+    "vuepress-plugin-thirdparty-search": "^1.0.2",
+    "vuepress-plugin-zooming": "^1.1.7",
+    "vuepress-theme-vdoing": "^1.8.3",
+    "yamljs": "^0.3.0",
+    "yargs": "^17.0.1"
   }
 }

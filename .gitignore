@@ -1,7 +1,19 @@
+# os
 .DS_Store
 Thumbs.db
-db.json
 *.log
+
+# npm
 node_modules/
-public/
+
+# hexo
+db.json
+
+# vuepress
+docs/.vuepress/dist
+
+# delpoy
 .deploy*/
+
+# 百度链接推送
+urls.txt
