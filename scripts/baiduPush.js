@@ -8,10 +8,11 @@ const matter = require("gray-matter"); // FrontMatter解析器 https://github.co
 const readFileList = require("./modules/readFileList");
 const exec = require("./modules/exec");
 const rm = require("./modules/rm");
+const cd = require("./modules/cd");
 
 const urlsRoot = path.join(__dirname, "..", "urls.txt"); // 百度链接推送文件
 // const arg = process.argv.splice(2)[0]; // 获取命令行传入的参数
-const CNAME = fs.readFileSync("../CNAME", "utf-8");
+const CNAME = fs.readFileSync(path.resolve(__dirname, "../CNAME"), "utf-8");
 let DOMAIN = CNAME;
 
 if (!DOMAIN) {
@@ -20,7 +21,7 @@ if (!DOMAIN) {
 }
 
 if (!/https?:\/\//i.test(DOMAIN)) {
-  DOMAIN += "https://";
+  DOMAIN = "https://" + DOMAIN;
 }
 
 main();
@@ -42,9 +43,13 @@ async function main() {
     }
   });
 
-  await exec(
-    `curl -H 'Content-Type:text/plain' --data-binary @urls.txt "http://data.zz.baidu.com/urls?site=https://failte.cn&token=nbmU3aAMJG1ZRsZs"`
+  cd(path.resolve(__dirname, "../"));
+  const { stdout } = await exec(
+    `sudo curl -H 'Content-Type:text/plain' --data-binary '@urls.txt' 'http://data.zz.baidu.com/urls?site=https://failte.cn&token=nbmU3aAMJG1ZRsZs'`
   );
 
-  rm('urls.txt');
+  if (stdout) {
+    console.log(stdout);
+    rm(path.resolve(__dirname, "./urls.txt"));
+  }
 }

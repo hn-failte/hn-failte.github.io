@@ -3,6 +3,7 @@
  */
 const fs = require('fs'); // 文件模块
 const path = require('path'); // 路径模块
+const chalk = require("chalk");
 const docsRoot = path.join(__dirname, '..', '..', 'docs'); // docs文件路径
 
 function readFileList(dir = docsRoot, filesList = []) {
@@ -24,7 +25,7 @@ function readFileList(dir = docsRoot, filesList = []) {
             name = fileNameArr[1]
             type = fileNameArr[2]
           } else { // 超过两个‘.’的
-            log(chalk.yellow(`warning: 该文件 "${filePath}" 没有按照约定命名，将忽略生成相应数据。`))
+            console.log(chalk.yellow(`warning: 该文件 "${filePath}" 没有按照约定命名，将忽略生成相应数据。`))
             return
           }
           if(type === 'md'){ // 过滤非md文件
@@ -35,7 +36,7 @@ function readFileList(dir = docsRoot, filesList = []) {
           }
 
         }
-      }        
+      }
   });
   return filesList;
 }
