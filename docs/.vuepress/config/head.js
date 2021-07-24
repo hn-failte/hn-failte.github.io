@@ -14,9 +14,28 @@ module.exports = [
   [
     'script',
     {
-      'data-ad-client': 'ca-pub-7828333725993554',
       async: 'async',
-      src: 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js',
-    },
-  ], // 网站关联Google AdSense 与 html格式广告支持
+      src: 'https://www.googletagmanager.com/gtag/js?id=UA-152971888-1'
+    }
+  ],
+  [
+    'script',
+    {},
+    `
+      (function() {
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){ dataLayer.push(arguments) }
+        gtag("js", new Date());
+        gtag("config", "UA-152971888-1");
+      })();
+    `
+  ],
+  // [
+  //   'script',
+  //   {
+  //     'data-ad-client': 'ca-pub-7828333725993554',
+  //     async: 'async',
+  //     src: 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js',
+  //   },
+  // ], // 网站关联Google AdSense 与 html格式广告支持
 ]
