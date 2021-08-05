@@ -13,6 +13,7 @@ module.exports = [
           { text: 'Vue', link: '/pages/5d463fbdb172d43b/' },
           { text: 'React', link: '/pages/520f26/' },
           { text: 'Webpack', link: '/pages/8c2dd4/' },
+          { text: '混合开发', link: '/pages/20210803f1/' },
         ],
       },
       {
