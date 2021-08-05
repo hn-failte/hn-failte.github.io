@@ -3,11 +3,12 @@
   "version": "0.3.0",
   "private": true,
   "scripts": {
-    "dev": "vuepress dev docs",
+    "baiduPush": "node scripts/baiduPush",
     "build": "vuepress build docs",
+    "dev": "vuepress dev docs",
     "deploy": "node scripts/deploy",
     "editFm": "node scripts/editFrontmatter",
-    "baiduPush": "node scripts/baiduPush"
+    "new": "node scripts/newPost --title"
   },
   "license": "MIT",
   "dependencies": {

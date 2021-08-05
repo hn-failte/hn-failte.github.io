@@ -1,6 +1,6 @@
 const chalk = require("chalk");
 
-const cd = (dest) => {
+const cd = async (dest) => {
   process.chdir(dest);
   console.log(chalk.green("cd:"), dest);
 };
