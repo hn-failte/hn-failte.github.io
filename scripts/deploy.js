@@ -6,6 +6,7 @@ const cd = require("./modules/cd");
 const cp = require("./modules/cp");
 const rm = require("./modules/rm");
 const exist = require("./modules/exist");
+const platform = require("./platform");
 
 const main = async () => {
   const vuepress = join(__dirname, "../docs/.vuepress/");
@@ -23,11 +24,15 @@ const main = async () => {
     await exec("git init");
     await exec("git add --all");
     await exec(`git commit -m "quick deploy"`);
-    const { stdout } = await exec(`git config --global --list`);
+    await exec(`git config --local user.name "auto-deploy"`);
+    await exec(`git config --local user.email "failteku@gmail.com"`);
+    const { stdout } = await exec(`git config --local --list`);
     console.log(stdout);
     await pwd();
     const res = await exec(
-      `sudo git push -f 'git@github.com:hn-failte/hn-failte.github.io.git' master:gh-pages`
+      platform !== "win32"
+        ? `git push -f 'git@github.com:hn-failte/hn-failte.github.io.git' master:gh-pages`
+        : `sudo git push -f 'git@github.com:hn-failte/hn-failte.github.io.git' master:gh-pages`
     );
     if (res) {
       console.log(res);
