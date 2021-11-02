@@ -35,7 +35,7 @@ async function main() {
   if(!edit) { // 退出操作
     return
   }
-  
+
   const config = yamlToJs.load(configPath) // 解析配置文件的数据转为js对象
 
   if (type(config.path) !== 'array') {
@@ -55,7 +55,7 @@ async function main() {
     let dataStr = fs.readFileSync(file.filePath, 'utf8');// 读取每个md文件的内容
     const fileMatterObj = matter(dataStr) // 解析md文件的front Matter。 fileMatterObj => {content:'剔除frontmatter后的文件内容字符串', data:{<frontmatter对象>}, ...}
     let matterData = fileMatterObj.data; // 得到md文件的front Matter
-    
+
     let mark = false
     // 删除操作
     if (config.delete) {
@@ -68,7 +68,7 @@ async function main() {
             mark = true
           }
         })
-        
+
       }
     }
 
@@ -77,7 +77,7 @@ async function main() {
       Object.assign(matterData, config.data) // 将配置数据合并到front Matter对象
       mark = true
     }
-    
+
     // 有操作时才继续
     if (mark) {
       if(matterData.date && type(matterData.date) === 'date') {
