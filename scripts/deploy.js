@@ -21,7 +21,7 @@ const main = async () => {
   if (exist(dist)) {
     await cp(CNAME, destCNAME);
     await cd(dist);
-    await exec("git init");
+    await exec("git init -b master");
     await exec("git add --all");
     await exec(`git commit -m "quick deploy"`);
     await exec(`git config --local user.name "auto-deploy"`);
