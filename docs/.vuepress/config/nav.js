@@ -13,7 +13,8 @@ module.exports = [
           { text: 'Vue', link: '/pages/5d463fbdb172d43b/' },
           { text: 'React', link: '/pages/520f26/' },
           { text: 'Webpack', link: '/pages/8c2dd4/' },
-          { text: '混合开发', link: '/pages/20210803f1/' },
+          { text: '混合开发', link: '/pages/5ea438/' },
+          { text: '小程序', link: '/pages/93aad5/' },
         ],
       },
       {
@@ -39,6 +40,14 @@ module.exports = [
           {
             text: 'JS设计模式总结笔记',
             link: '/pages/4643cd/',
+          },
+          {
+            text: '圆角边框锯齿问题',
+            link: '/pages/3dec04/',
+          },
+          {
+            text: '各国语言正则',
+            link: '/pages/df0b4f/',
           },
         ],
       },
